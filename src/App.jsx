@@ -1,20 +1,6 @@
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-import {
-  Modal,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  useDisclosure,
-  Button,
-  Textarea,
-  Divider,
-} from "@nextui-org/react";
-
-import BuyFilters from "@/components/BuyFilters";
-import RentFilters from "@/components/RentFilters";
-import FiltersIcon from "@/assets/filters.svg";
+import { Button, Textarea } from "@nextui-org/react";
 
 const buttonVariants = {
   visible: {
@@ -28,26 +14,6 @@ const buttonVariants = {
 
 function App() {
   const [inputValue, setInputValue] = useState("");
-  const [category, setCategory] = useState("");
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
-  const categoryName = useMemo(() => {
-    switch (category) {
-      case "buy":
-        return "خرید";
-
-      case "rent":
-        return "رهن و اجاره";
-
-      default:
-        return "";
-    }
-  }, [category]);
-
-  const onModalClose = () => {
-    setCategory("");
-    onOpenChange();
-  };
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
@@ -85,13 +51,6 @@ function App() {
             }}
           />
 
-          <div
-            onClick={onOpen}
-            className="absolute left-4 top-4 w-8 h-8 flex items-center justify-center bg-slate-950 rounded-md cursor-pointer"
-          >
-            <img src={FiltersIcon} width={20} height={20} />
-          </div>
-
           <AnimatePresence>
             {inputValue && (
               <motion.div
@@ -109,89 +68,6 @@ function App() {
           </AnimatePresence>
         </div>
       </div>
-
-      <Modal
-        backdrop="blur"
-        isOpen={isOpen}
-        size="lg"
-        onOpenChange={onModalClose}
-        closeButton={<></>}
-        classNames={{
-          footer: "",
-        }}
-      >
-        <ModalContent>
-          {(onClose) => (
-            <>
-              {category ? (
-                <ModalHeader className="flex items-center justify-between">
-                  <span className="text-xl font-bold">فیلترها</span>
-                  <div
-                    className="flex gap-2 text-gray-700 cursor-pointer mt-1"
-                    onClick={() => setCategory("")}
-                  >
-                    <span className="text-sm">
-                      انتخاب دسته‌بندی ({categoryName})
-                    </span>
-                    <span className="text-xl">←</span>
-                  </div>
-                </ModalHeader>
-              ) : (
-                ""
-              )}
-
-              <ModalBody className="py-6">
-                {category ? (
-                  category === "buy" ? (
-                    <BuyFilters />
-                  ) : (
-                    <RentFilters />
-                  )
-                ) : (
-                  <div className="w-full py-4">
-                    <div
-                      className="flex-1 h-20 bg-slate-100 flex items-center justify-center  hover:bg-gradient-to-r from-red-400 via-pink-600 to-purple-700 text-gray-900 hover:text-white cursor-pointer"
-                      onClick={() => setCategory("rent")}
-                    >
-                      <span className="text-xl font-black">رهن و اجاره</span>
-                    </div>
-                    <Divider className="bg-slate-200" />
-                    <div
-                      className="flex-1 h-20 bg-slate-100 flex items-center justify-center  hover:bg-gradient-to-r from-red-400 via-pink-600 to-purple-700 text-gray-900 hover:text-white cursor-pointer"
-                      onClick={() => setCategory("buy")}
-                    >
-                      <span className="text-xl font-black">خرید</span>
-                    </div>
-                  </div>
-                )}
-              </ModalBody>
-
-              {category && (
-                <ModalFooter>
-                  <Button
-                    size="lg"
-                    radius="sm"
-                    color="danger"
-                    onPress={onClose}
-                    className="flex-1"
-                  >
-                    انصراف
-                  </Button>
-                  <Button
-                    size="lg"
-                    radius="sm"
-                    color="primary"
-                    onPress={onClose}
-                    className="flex-1"
-                  >
-                    تایید
-                  </Button>
-                </ModalFooter>
-              )}
-            </>
-          )}
-        </ModalContent>
-      </Modal>
     </motion.main>
   );
 }
