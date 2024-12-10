@@ -64,18 +64,18 @@ function App() {
         <div>
           <section className="text-center">
             <h1 className="text-5xl font-extrabold leading-snug bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-transparent bg-clip-text">
-              کاوش کن، بجوی، هر کشصری که می‌خوای جستجو کن و خونه مدنظرت رو پیدا
-              کن
+              در بین هزاران آگهی دیوار، خونه و آپارتمان مورد نظرت رو جستجو و
+              پیدا کن
             </h1>
             <p className="text-lg font-semibold text-slate-400 mt-4 mb-24">
-              اینجا یک توضیح قرار می‌گیره که باید بگی مثلا یک دستور رو بنویس تا
-              برات چیزی که می‌خوای رو آبش رو بیاریم.
+              دستور مورد نظرت رو به هوش مصنوعی بگو تا بهترین پیشنهاد در حوزه
+              خونه و آپارتمان رو برات پیدا کنه
             </p>
           </section>
 
           <div className="relative mb-4">
             <Textarea
-              placeholder="هر چی دل تنگت می‌خواد سرچ کن..."
+              placeholder="دستورت رو اینجا بنویس..."
               minRows={6}
               value={inputValue}
               onChange={handleChange}
